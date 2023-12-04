@@ -1,42 +1,42 @@
-module AdventOfCode.Prelude (
-    Solution (..),
-    ByteString,
-    Generic,
-    HashMap,
-    HashSet,
-    IntMap,
-    Map,
-    NFData,
-    Parser,
-    Set,
-    Vector,
-    module Control.Applicative.Combinators,
-    module Control.Applicative.Combinators.NonEmpty,
-    module Control.Monad,
-    module Data.Bifunctor,
-    module Data.Either,
-    module Data.Function,
-    module Data.Functor,
-    module Data.Foldable,
-    module Data.Foldable1,
-    module Data.Maybe,
-    module Data.List.NonEmpty,
-    sortBy,
-    sortOn,
-    sepEndBy',
-    sepEndBy1',
-    count,
-)
+module AdventOfCode.Prelude
+    ( Solution (..)
+    , ByteString
+    , Generic
+    , HashMap
+    , HashSet
+    , IntMap
+    , Map
+    , NFData
+    , Parser
+    , Set
+    , Vector
+    , module Control.Applicative.Combinators
+    , module Control.Applicative.Combinators.NonEmpty
+    , module Control.Monad
+    , module Data.Bifunctor
+    , module Data.Either
+    , module Data.Function
+    , module Data.Functor
+    , module Data.Foldable
+    , module Data.Foldable1
+    , module Data.Maybe
+    , module Data.List.NonEmpty
+    , sortBy
+    , sortOn
+    , sepEndBy'
+    , sepEndBy1'
+    , count
+    )
 where
 
-import Control.Applicative.Combinators hiding (
-    count,
-    endBy1,
-    sepBy1,
-    sepEndBy1,
-    some,
-    someTill,
- )
+import Control.Applicative.Combinators hiding
+    ( count
+    , endBy1
+    , sepBy1
+    , sepEndBy1
+    , some
+    , someTill
+    )
 import Control.Applicative.Combinators.NonEmpty
 import Control.DeepSeq (NFData)
 import Control.Monad (guard)

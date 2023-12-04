@@ -1,13 +1,13 @@
 module AdventOfCode.Main (solve, today, solveToday, showNominalDiffTime) where
 
-import qualified AdventOfCode.Day01 as Day01
+import AdventOfCode.Day01 qualified as Day01
 import AdventOfCode.Prelude
 import Control.DeepSeq (force)
 import Control.Exception (catch)
 import Control.Exception.Base (throwIO)
 import Data.Attoparsec.ByteString (endOfInput, parseOnly)
-import qualified Data.ByteString as BS
-import qualified Data.IntMap as IntMap
+import Data.ByteString qualified as BS
+import Data.IntMap qualified as IntMap
 import Data.Time
     ( NominalDiffTime
     , addUTCTime
