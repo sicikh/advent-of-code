@@ -39,6 +39,7 @@ library
     import:          warnings, extensions, dependencies
     exposed-modules:
         AdventOfCode.Day01
+        AdventOfCode.Day02
         AdventOfCode.Main
         AdventOfCode.Parser
         AdventOfCode.Prelude

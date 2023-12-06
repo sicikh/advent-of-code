@@ -1,13 +1,14 @@
 module AdventOfCode.Main (solve, today, solveToday, showNominalDiffTime) where
 
-import AdventOfCode.Day01 qualified as Day01
+import qualified AdventOfCode.Day01 as Day01
+import qualified AdventOfCode.Day02 as Day02
 import AdventOfCode.Prelude
 import Control.DeepSeq (force)
 import Control.Exception (catch)
 import Control.Exception.Base (throwIO)
 import Data.Attoparsec.ByteString (endOfInput, parseOnly)
-import Data.ByteString qualified as BS
-import Data.IntMap qualified as IntMap
+import qualified Data.ByteString as BS
+import qualified Data.IntMap as IntMap
 import Data.Time
     ( NominalDiffTime
     , addUTCTime
@@ -35,6 +36,7 @@ solutions :: IntMap Solution
 solutions =
     IntMap.fromList
         [ (1, Day01.solution)
+        , (2, Day02.solution)
         ]
 
 readInputFile :: Int -> IO ByteString

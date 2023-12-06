@@ -72,7 +72,7 @@ sepEndBy' p sep = sepBy' p sep <* optional sep
 
 sepEndBy1' :: Parser a -> Parser b -> Parser (NonEmpty a)
 sepEndBy1' p sep = do
-    !x <- p
+    x <- p -- !x
     xs <- sepEndBy' p sep
     pure (x :| xs)
 
