@@ -12,7 +12,7 @@ module AdventOfCode.Parser
 where
 
 import Control.Applicative (Alternative (..))
-import qualified Data.Attoparsec.ByteString as Word8
+import Data.Attoparsec.ByteString qualified as Word8
 import Data.Attoparsec.ByteString.Char8
 import Data.ByteString (ByteString)
 

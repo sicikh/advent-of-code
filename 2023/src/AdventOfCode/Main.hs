@@ -1,14 +1,15 @@
 module AdventOfCode.Main (solve, today, solveToday, showNominalDiffTime) where
 
-import qualified AdventOfCode.Day01 as Day01
-import qualified AdventOfCode.Day02 as Day02
+import AdventOfCode.Day01 qualified as Day01
+import AdventOfCode.Day01 qualified as Day03
+import AdventOfCode.Day02 qualified as Day02
 import AdventOfCode.Prelude
 import Control.DeepSeq (force)
 import Control.Exception (catch)
 import Control.Exception.Base (throwIO)
 import Data.Attoparsec.ByteString (endOfInput, parseOnly)
-import qualified Data.ByteString as BS
-import qualified Data.IntMap as IntMap
+import Data.ByteString qualified as BS
+import Data.IntMap qualified as IntMap
 import Data.Time
     ( NominalDiffTime
     , addUTCTime
@@ -37,6 +38,7 @@ solutions =
     IntMap.fromList
         [ (1, Day01.solution)
         , (2, Day02.solution)
+        , (3, Day03.solution)
         ]
 
 readInputFile :: Int -> IO ByteString
@@ -113,9 +115,9 @@ bench f x = do
 
 showNominalDiffTime :: NominalDiffTime -> String
 showNominalDiffTime diff
-    | s < 1e-5 = printf "%.3f ns" ns
-    | s < 1e-4 = printf "%.2f ns" ns
-    | s < 1e-3 = printf "%.1f ns" ns
+    | s < 1e-5 = printf "%.3f μs" us
+    | s < 1e-4 = printf "%.2f μs" us
+    | s < 1e-3 = printf "%.1f μs" us
     | s < 1e-2 = printf "%.3f ms" ms
     | s < 1e-1 = printf "%.2f ms" ms
     | s < 1.0 = printf "%.1f ms" ms
@@ -123,7 +125,7 @@ showNominalDiffTime diff
     where
         s = realToFrac diff :: Double
         ms = s * 1e3
-        ns = s * 1e6
+        us = s * 1e6
 
 solve :: Int -> IO ()
 solve day = do

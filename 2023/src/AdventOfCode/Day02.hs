@@ -1,6 +1,6 @@
 module AdventOfCode.Day02 (solution) where
 
-import qualified AdventOfCode.Parser as Parser
+import AdventOfCode.Parser qualified as Parser
 import AdventOfCode.Prelude
 
 solution :: Solution

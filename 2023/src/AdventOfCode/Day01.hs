@@ -1,10 +1,10 @@
 module AdventOfCode.Day01 (solution) where
 
-import qualified AdventOfCode.Parser as Parser
+import AdventOfCode.Parser qualified as Parser
 import AdventOfCode.Prelude
-import qualified Data.ByteString.Char8 as BS
+import Data.ByteString.Char8 qualified as BS
 import Data.Char (isAlphaNum, isDigit, ord)
-import qualified Data.Trie as Trie
+import Data.Trie qualified as Trie
 
 solution :: Solution
 solution =
