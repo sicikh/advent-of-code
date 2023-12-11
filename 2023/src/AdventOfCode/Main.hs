@@ -1,13 +1,21 @@
-module AdventOfCode.Main (solve, today, solveToday, showNominalDiffTime) where
+module AdventOfCode.Main
+    ( solve
+    , solutions
+    , today
+    , solveToday
+    , readInputFile
+    )
+where
 
 import AdventOfCode.Day01 qualified as Day01
-import AdventOfCode.Day01 qualified as Day03
 import AdventOfCode.Day02 qualified as Day02
+import AdventOfCode.Day03 qualified as Day03
+import AdventOfCode.Day04 qualified as Day04
+import AdventOfCode.Parser (runParser)
 import AdventOfCode.Prelude
 import Control.DeepSeq (force)
 import Control.Exception (catch)
 import Control.Exception.Base (throwIO)
-import Data.Attoparsec.ByteString (endOfInput, parseOnly)
 import Data.ByteString qualified as BS
 import Data.IntMap qualified as IntMap
 import Data.Time
@@ -39,6 +47,7 @@ solutions =
         [ (1, Day01.solution)
         , (2, Day02.solution)
         , (3, Day03.solution)
+        , (4, Day04.solution)
         ]
 
 readInputFile :: Int -> IO ByteString
@@ -120,7 +129,9 @@ showNominalDiffTime diff
     | s < 1e-3 = printf "%.1f μs" us
     | s < 1e-2 = printf "%.3f ms" ms
     | s < 1e-1 = printf "%.2f ms" ms
-    | s < 1.0 = printf "%.1f ms" ms
+    | s < 1e+0 = printf "%.1f ms" ms
+    | s < 1e+1 = printf "%.3f s" s
+    | s < 1e+2 = printf "%.2f s" s
     | otherwise = printf "%.1f s" s
     where
         s = realToFrac diff :: Double
@@ -134,16 +145,17 @@ solve day = do
         Nothing -> putStrLn $ "No solution for day " <> show day
         Just (Solution {parser, part1, part2}) -> do
             putStrLn $ "Day " <> show day <> ":"
-            (parseResult, parseTime) <- bench (parseOnly (parser <* endOfInput)) input
-            case parseResult of
-                Left err -> putStrLn $ "Parser failed on: " <> err
-                Right x -> do
-                    printf "  Parser took %s\n" (showNominalDiffTime parseTime)
-                    (result1, time1) <- bench (force . part1) x
-                    printf "  Part 1 (took %s): %s\n" (showNominalDiffTime time1) (show result1)
-                    (result2, time2) <- bench (force . part2) x
-                    printf "  Part 2 (took %s): %s\n" (showNominalDiffTime time2) (show result2)
-                    printf "  Total time: %s\n" (showNominalDiffTime (parseTime + time1 + time2))
+
+            (x, parseTime) <- bench (runParser parser) input
+            printf "  Parser took %s\n" (showNominalDiffTime parseTime)
+
+            (result1, time1) <- bench (force . part1) x
+            printf "  Part 1 (took %s): %s\n" (showNominalDiffTime time1) (show result1)
+
+            (result2, time2) <- bench (force . part2) x
+            printf "  Part 2 (took %s): %s\n" (showNominalDiffTime time2) (show result2)
+
+            printf "  Total time: %s\n" (showNominalDiffTime (parseTime + time1 + time2))
 
 solveToday :: IO ()
 solveToday = today >>= solve

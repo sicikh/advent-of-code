@@ -9,7 +9,6 @@ module AdventOfCode.Prelude
     , NFData
     , Parser
     , Set
-    , Vector
     , module Control.Applicative.Combinators
     , module Control.Applicative.Combinators.NonEmpty
     , module Control.Monad
@@ -23,6 +22,7 @@ module AdventOfCode.Prelude
     , module Data.List.NonEmpty
     , sortBy
     , sortOn
+    , sepBy'
     , sepEndBy'
     , sepEndBy1'
     , count
@@ -56,7 +56,6 @@ import Data.List.NonEmpty (NonEmpty (..), nonEmpty)
 import Data.Map (Map)
 import Data.Maybe
 import Data.Set (Set)
-import Data.Vector (Vector)
 import GHC.Generics (Generic)
 
 data Solution = forall a b c.
@@ -72,7 +71,7 @@ sepEndBy' p sep = sepBy' p sep <* optional sep
 
 sepEndBy1' :: Parser a -> Parser b -> Parser (NonEmpty a)
 sepEndBy1' p sep = do
-    x <- p -- !x
+    !x <- p
     xs <- sepEndBy' p sep
     pure (x :| xs)
 

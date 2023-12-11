@@ -29,6 +29,7 @@ common dependencies
         , http-client
         , http-client-tls
         , http-types
+        , parallel
         , parser-combinators
         , text
         , time
@@ -41,6 +42,7 @@ library
         AdventOfCode.Day01
         AdventOfCode.Day02
         AdventOfCode.Day03
+        AdventOfCode.Day04
         AdventOfCode.Main
         AdventOfCode.Parser
         AdventOfCode.Prelude
@@ -57,3 +59,13 @@ executable AdventOfCode2023
     -- other-extensions:
     build-depends:  AdventOfCode2023
     hs-source-dirs: app
+
+benchmark AoC2023-bench
+    import:         warnings, extensions, dependencies
+    type:           exitcode-stdio-1.0
+    main-is:        Main.hs
+
+    -- other-modules:
+    -- other-extensions:
+    build-depends:  AdventOfCode2023, tasty-bench
+    hs-source-dirs: bench

@@ -40,9 +40,7 @@ powerCubes = sum . map (power . draw)
 parseGame :: Parser Game
 parseGame = Game <$> (Parser.symbol "Game " *> Parser.decimal <* Parser.char ':') <*> draw
     where
-        draw :: Parser Draw
         draw = mconcat <$> cube `Parser.sepBy1'` Parser.char ';'
-        cube :: Parser Draw
         cube = mconcat <$> color `Parser.sepBy1'` Parser.char ','
         color =
             Parser.skipSpace *> Parser.decimal <* Parser.skipSpace >>= \i ->
