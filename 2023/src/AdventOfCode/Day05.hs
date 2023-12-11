@@ -55,30 +55,30 @@ seedRanges = map (\(x, y) -> Range x (x + y))
 
 parseAlmanac :: Parser ([(Int, Int)], [Map])
 parseAlmanac = do
-  seedPairs <- Parser.symbol "seeds:" *> pair `sepBy` Parser.whitespace
-  Parser.skipSpace
-  maps <- parseMap `sepEndBy` Parser.endOfLine
-  pure (seedPairs, maps)
-  where
-    pair = do
-      x <- Parser.decimal <* Parser.space
-      y <- Parser.decimal
-      pure (x, y)
+    seedPairs <- Parser.symbol "seeds:" *> pair `sepBy` Parser.whitespace
+    Parser.skipSpace
+    maps <- parseMap `sepEndBy` Parser.endOfLine
+    pure (seedPairs, maps)
+    where
+        pair = do
+            x <- Parser.decimal <* Parser.space
+            y <- Parser.decimal
+            pure (x, y)
 
 parseMap :: Parser Map
 parseMap = do
-  _name <- Parser.takeWhile1 (\c -> isAsciiLower c || c == '-') <* Parser.space
-  Parser.string "map:" >> Parser.endOfLine
-  parseRule `sepEndBy'` Parser.endOfLine
+    _name <- Parser.takeWhile1 (\c -> isAsciiLower c || c == '-') <* Parser.space
+    Parser.string "map:" >> Parser.endOfLine
+    parseRule `sepEndBy'` Parser.endOfLine
 
 parseRule :: Parser Rule
 parseRule = do
-  destination <- Parser.decimal <* Parser.space
-  source <- Parser.decimal <* Parser.space
-  len <- Parser.decimal
-  let ruleRange = Range source (source + len)
-      ruleShift = destination - source
-  pure (ruleRange, ruleShift)
+    destination <- Parser.decimal <* Parser.space
+    source <- Parser.decimal <* Parser.space
+    len <- Parser.decimal
+    let ruleRange = Range source (source + len)
+        ruleShift = destination - source
+    pure (ruleRange, ruleShift)
 
 isEmpty :: Range -> Bool
 isEmpty (Range start end) = start >= end
