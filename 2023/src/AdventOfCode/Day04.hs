@@ -1,15 +1,15 @@
 module AdventOfCode.Day04 (solution) where
 
-import AdventOfCode.Prelude
 import AdventOfCode.Parser qualified as Parser
+import AdventOfCode.Prelude
 import Data.HashSet qualified as HashSet
 
 solution :: Solution
 solution =
     Solution
         { parser = parseCard `sepEndBy'` Parser.endOfLine
-        , part1 = scoreSum
-        , part2 = copyScoreSum
+        , part1 = sum . map score
+        , part2 = sum . copyScore
         }
 
 parseCard :: Parser Int
@@ -25,13 +25,9 @@ parseCard = do
 
     pure $ count (`HashSet.member` winningSet) numbers
 
-scoreSum :: [Int] -> Int
-scoreSum = sum . map score
-    where
-        score 0 = 0
-        score m = 2 ^ (m - 1)
+score :: Int -> Int
+score 0 = 0
+score m = 2 ^ (m - 1)
 
-copyScoreSum :: [Int] -> Int
-copyScoreSum = sum . foldr go []
-    where
-        go c cs = 1 + sum (take c cs) : cs
+copyScore :: [Int] -> [Int]
+copyScore = foldr (\s ss -> 1 + sum (take s ss) : ss) []
