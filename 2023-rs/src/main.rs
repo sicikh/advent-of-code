@@ -32,6 +32,7 @@ fn solutions() -> Solutions {
     HashMap::from([
         (8, Box::new(Day08) as Box<dyn Solution>),
         (9, Box::new(Day09) as Box<dyn Solution>),
+        (10, Box::new(Day10) as Box<dyn Solution>),
     ])
 }
 

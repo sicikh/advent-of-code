@@ -10,6 +10,8 @@
 
 mod day_08;
 mod day_09;
+mod day_10;
 
 pub use day_08::*;
 pub use day_09::*;
+pub use day_10::*;
